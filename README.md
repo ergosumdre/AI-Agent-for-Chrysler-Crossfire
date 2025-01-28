@@ -1,21 +1,17 @@
-# Instructions
+# Tech Stack
 
-Create a GitHub page for the project
+## Collecting/Analyzing the Dataset
+#### 1. Use bash to scrape the website www.crossfireforum.org
+#### 2. Download relevant PDF associated to the vehicle. 
+#### 3. Use AugmentedToolKit to generate synthetic datasets from the scraped data. 
+#### 4. Perform Topic Modeling to better understand the dataset.
 
-## GitHub:
-#### 1. Create a GitHub account and Sign in
-#### 2. Go to [https://github.com/capstone4ds/capstone4ds_template](https://github.com/capstone4ds/capstone4ds_template) and fork (create a copy to your GitHub)
-![fork](fork.png)
-#### 3. Change the name of the repo to *IDC6940_GroupName*
-#### 4. Go to *Settings* -> *Pages* -> under *Branch* -> select *main*
-#### 5. Wait for a few seconds and refresh the page. You see the link of the page. 
+## Fine-tuning the Model
+#### 1. Use Unsloth to fine-tune a llama based LLM. 
+#### 2. Use WandB to optimize/sweep training parameters.
+#### 3. Use Microsoft's PromptWizard to generate system prompts at inference.
+#### 4. Optimize inference parameters to improve the model's performance.
+#### 5. Find ways to evaluate the Models performance.
 
-## RStudio:
-#### 1. Go to RStudio
-#### 2. Create a Version Control Project and Clone the repo.
-#### 3. Commit and push to see changes on the website et Voilà!
-
-More information:
-- [GitHub](https://happygitwithr.com/index.html)
-- [Video1 RStudio connection to GitHub](https://www.youtube.com/watch?v=MdmnE3AnkQE)
-- [Video2 RStudio connection to GitHub](https://www.youtube.com/watch?v=jN6tvgt3GK8)
+## Deploying the Model/Chatbot
+#### 1. Find a platform to deploy the model as a chatbot.
