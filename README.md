@@ -7,9 +7,9 @@
 4. Perform topic modeling to better understand the dataset.  
 
 ## Fine-Tuning the Model
-1. Use Unsloth to fine-tune a LLaMA-based LLM.  
+1. Use [Unsloth](https://github.com/unslothai/unsloth) Unsloth to fine-tune a LLaMA-based LLM.  
 2. Use WandB to optimize and sweep training parameters.  
-3. Use Microsoft's PromptWizard to generate system prompts at inference.  
+3. Use [Microsoft's PromptWizard] (https://github.com/microsoft/PromptWizard) to generate system prompts at inference.  
 4. Optimize inference parameters to improve model performance.  
 5. Develop methods to evaluate the model’s performance.  
 
