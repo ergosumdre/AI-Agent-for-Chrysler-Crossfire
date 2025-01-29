@@ -1,17 +1,17 @@
 # Tech Stack
 
-## Collecting/Analyzing the Dataset
-  #### 1. Use bash to scrape the website www.crossfireforum.org
-  #### 2. Download relevant PDF associated to the vehicle. 
-  #### 3. Use AugmentedToolKit to generate synthetic datasets from the scraped data. 
-  #### 4. Perform Topic Modeling to better understand the dataset.
+## Collecting and Analyzing the Dataset
+1. Use Bash to scrape data from [www.crossfireforum.org](https://www.crossfireforum.org).  
+2. Download relevant PDFs associated with the vehicle.  
+3. Use AugmentedToolKit to generate synthetic datasets from the scraped data.  
+4. Perform topic modeling to better understand the dataset.  
 
-## Fine-tuning the Model
-  #### 1. Use Unsloth to fine-tune a llama based LLM. 
-  #### 2. Use WandB to optimize/sweep training parameters.
-  #### 3. Use Microsoft's PromptWizard to generate system prompts at inference.
-  #### 4. Optimize inference parameters to improve the model's performance.
-  #### 5. Find ways to evaluate the Models performance.
+## Fine-Tuning the Model
+1. Use Unsloth to fine-tune a LLaMA-based LLM.  
+2. Use WandB to optimize and sweep training parameters.  
+3. Use Microsoft's PromptWizard to generate system prompts at inference.  
+4. Optimize inference parameters to improve model performance.  
+5. Develop methods to evaluate the model’s performance.  
 
 ## Deploying the Model/Chatbot
-  #### 1. Find a platform to deploy the model as a chatbot.
+1. Identify a suitable platform for deploying the model as a chatbot.  
