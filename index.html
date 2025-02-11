@@ -3182,7 +3182,7 @@ Important
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction (Draft)</h2>
-With the release of ChatGPT in late 2022, the world of Large Language Models (LLMs) has taken the world by storm. As LLMs gained popularity, they have emerged as pivotal technologies for navigating and synthesizing complex information landscapes across various domains, ranging from language translation and technical documentation to specialized communities and enthusiast groups. LLMs represent a significant advancement beyond traditional information retrieval systems by integrating broad general knowledge and the capacity for highly specific, domain understanding. Unlike conventional search engines, which often treat information as isolated data points, LLMs are designed to comprehend content and establish relationships within interconnected bodies of knowledge, offering a more powerful approach to accessing and utilizing real-world information. </br>
+With the release of ChatGPT in late 2022, the world of Large Language Models (LLMs) has taken the world by storm. As LLMs gained popularity, they have emerged as pivotal technologies for navigating and synthesizing complex information landscapes across various domains, ranging from language translation and technical documentation to specialized communities and enthusiast groups. LLMs represent a significant advancement beyond traditional information retrieval systems by integrating broad general knowledge and the capacity for highly specific, domain understanding. Unlike conventional search engines, which often treat information as isolated data points, LLMs are designed to comprehend content and establish relationships within interconnected bodies of knowledge, offering a more powerful approach to accessing and utilizing real-world information. </br></br>
 
 
 LLMs are well-suited to address the challenges of decentralized knowledge environments, particularly those characterized by community-generated content, diverse perspectives, and fragmented information sources. By utilizing fine-tuning and adaptation to specific domains, these models can effectively account for unique jargon, and implicit knowledge embedded within community interactions. This paper develops a language model that pieces together information sources, understands community nuances, and synthesizes fragmented, community-driven insights into coherent, actionable knowledge.
@@ -3191,33 +3191,33 @@ LLMs are well-suited to address the challenges of decentralized knowledge enviro
 
 <section id="lit_review" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Literature Review</h2>
-<b>"Attention is All You Need" (Vaswani et al., 2017) Summarization:</b></br>
+<b>"Attention is All You Need" (Vaswani et al., 2017) Summarization:</b></br></br>
 In 2017, at the 31st Annual Conference on Neural Information Processing Systems, researchers at Google introduced a new neural network architecture: the Transformer. This innovation sought to overcome the limitations of existing neural network methods, which were sequential and computationally intensive. In other words, Transformers bypassed the inefficiencies of recurrent networks by enabling parallel processing. 
 
 In this paper, the researchers describe a concept of ‘Self-attention’, where each word, within a sequence forms relationships with other words, allowing the neural network model to have a global understanding of the entire sequence. This self-attention concept allows the neural network model to focus on the most relevant parts of an input, regardless of its position in the sequence. 
 
 To implement the concept of ‘Self-attention’ the researchers developed a method to map every word to a set of three vectors: a Query (Q), a Key (K), and a Value (V). Here, the Query vector represents how the word interacts with other words within the sequence. The Key vector represents what the word offers to other words within the sequence. Lastly, the Value vector represents the actual content of the word. This mapping allows the neural network model to apply weights, determining how strongly each word relates to others in the sequence.
 
-This work is substantial because it revolutionized the way neural networks process natural language, allowing them to become more efficient and scalable. </br>
+This work is substantial because it revolutionized the way neural networks process natural language, allowing them to become more efficient and scalable. </br></br>
 
-<b>"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" (Devlin et al., 2018) Summarization:</b></br>
+<b>"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" (Devlin et al., 2018) Summarization:</b></br></br>
 Building upon the Transformer architecture introduced in “Attention is All You Need,” researchers at Google developed BERT (Bidirectional Encoder Representations from Transformers). BERT applies the self-attention mapping mechanism to generate deep bidirectional representations of word sequences, allowing it to capture context from both the left and right of a given word. This bi-directionality comprehensive knowledge gives the neural network model the ability to accurately predict missing words in a sequence, as opposed to models that only consider one directional context. 
 
 During pretraining BERT applies a masked language approach, where certain words in a sequence are randomly masked, and the model must predict the masked word based on the surrounding context. The method allows BERT to develop a comprehensive understanding of words and their relationship to other words in the sequence. 
 
-This work is substantial because it revolutionized the way LLMs were pre-trained. By using a bi-directional approach, BERT allowed LLMs to better understand the context, therefore improving the performance of training LLMs. </br>
+This work is substantial because it revolutionized the way LLMs were pre-trained. By using a bi-directional approach, BERT allowed LLMs to better understand the context, therefore improving the performance of training LLMs. </br></br>
 
-<b>Language Models are Few-Shot Learners (Brown et al., 2020) Summarization:</b></br>
+<b>Language Models are Few-Shot Learners (Brown et al., 2020) Summarization:</b></br></br>
 The goal of this paper was to demonstrate the scaling effect of Large Language Models (LLMs) on performance. In this paper, the researchers at OpenAI proposed that the number of training parameters has a direct correlation with model performance. In other words, the researchers found that the model performed more accurately as they increased the number of training parameters.
 
 This finding is significant because earlier transformer models (GPT-2) relied on a limited number of training parameters, which restricted the model’s ability to learn and generalize new information from larger datasets. 
 
 Further, the researchers at OpenAI discovered that dynamically applying different learning frameworks during training—such as zero-shot, one-shot, and few-shot learning, could improve the model’s performance. Zero-shot learning, which involves training the model on a task without providing any examples of the task, allowed the model to generalize new tasks based on its understanding of language and context alone. One-shot learning involves training the model on a task with just one instance, allowing the model to learn from minimal data. Similarly, Few-shot learning involves training the model on a task with more than one instance. This dynamic method of training is critical for improving a model’s performance, where data are missing. 
 
-This dynamic approach, combined with a large number of training parameters has significantly improved the model’s performance. However, one limitation of this approach is the increased computational resources required. For example, as the number of training parameters grows, so does the demand for processing power, memory, and storage. This can result in longer training times and higher costs. </br>
+This dynamic approach, combined with a large number of training parameters has significantly improved the model’s performance. However, one limitation of this approach is the increased computational resources required. For example, as the number of training parameters grows, so does the demand for processing power, memory, and storage. This can result in longer training times and higher costs. </br></br>
 
 
-<b>LLaMA: Open and Efficient Foundation Language Models (Touvron et al., 2023) Summarization:</b></br>
+<b>LLaMA: Open and Efficient Foundation Language Models (Touvron et al., 2023) Summarization:</b></br></br>
 The researchers at Meta developed a new series of open-sourced Large Language Model designed to be efficient and scalable. Here LLaMa demonstrated it can achieve competitive performance with existing models, such as GPT-3, while being accessible to researchers and the open-source community. 
 
 LLama’s openness is important because it allows others access to advanced large language models, allowing researchers and the open-source community to further study, adapt, and improve upon LLMs, on a single GPU. 
