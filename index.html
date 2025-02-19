@@ -3184,11 +3184,24 @@ Important
 <h2 class="anchored" data-anchor-id="introduction">Introduction (Draft)</h2>
 With the release of ChatGPT in late 2022, the world of Large Language Models (LLMs) has taken the world by storm. As LLMs gained popularity, they have emerged as pivotal technologies for navigating and synthesizing complex information landscapes across various domains, ranging from language translation and technical documentation to specialized communities and enthusiast groups. LLMs represent a significant advancement beyond traditional information retrieval systems by integrating broad general knowledge and the capacity for highly specific, domain understanding. Unlike conventional search engines, which often treat information as isolated data points, LLMs are designed to comprehend content and establish relationships within interconnected bodies of knowledge, offering a more powerful approach to accessing and utilizing real-world information. </br></br>
 
-
 LLMs are well-suited to address the challenges of decentralized knowledge environments, particularly those characterized by community-generated content, diverse perspectives, and fragmented information sources. By utilizing fine-tuning and adaptation to specific domains, these models can effectively account for unique jargon, and implicit knowledge embedded within community interactions. This paper develops a language model that pieces together information sources, understands community nuances, and synthesizes fragmented, community-driven insights into coherent, actionable knowledge.
 
 </section>
 
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Dataset</h2>
+The dataset was curated by scraping several community-driven forums and technical documentation PDF files. Using this curated data, I formatted the data into a conversational structure to fine-tune Meta's Llama 3.1 8B Model. You can find the dataset here:
+https://dredyson.com/wp-content/uploads/2025/02/all.jsonl.
+</section>
+
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Computational Resources</h2>
+For this project, I will use 4 Nividia Tesla V100 GPUs to fine-tune Meta's Llama Model.
+</section>
+  
+
+
+  
 <section id="lit_review" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Literature Review</h2>
 <b>"Attention is All You Need" (Vaswani et al., 2017) Summarization:</b></br></br>
