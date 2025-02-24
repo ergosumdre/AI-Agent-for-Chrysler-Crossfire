@@ -14,4 +14,4 @@
 5. Develop methods to evaluate the model’s performance.  
 
 ## Deploying the AI Agent
-1. Identify a suitable platform for deploying the model as a chatbot.  
+1. Identify a suitable platform for deploying the model as a chatable AI Agent.  
