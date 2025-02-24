@@ -13,5 +13,5 @@
 4. Optimize inference parameters to improve model performance.  
 5. Develop methods to evaluate the model’s performance.  
 
-## Deploying the Model/Chatbot
+## Deploying the AI Agent
 1. Identify a suitable platform for deploying the model as a chatbot.  
