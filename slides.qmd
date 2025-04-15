@@ -1,13 +1,13 @@
+```markdown
 ---
-title: "Present a great story for data science projects"
-subtitle: "This is a Slide Template"
-author: "Students names (Advisor: Dr. Cohen)"
+title: "Developing an AI Chatbot for Chrysler Crossfire Related Information Using LLaMA and Synthetic Data"
+subtitle: "Fine-tuning a Large Language Model"
+author: "Dre Dyson (Advisor: Dr. Cohen)"
 date: '`r Sys.Date()`'
 format:
   revealjs
 course: Capstone Projects in Data Science
-bibliography: references.bib # file contains bibtex for references
-#always_allow_html: true # this allows to get PDF with HTML features
+bibliography: references.bib
 self-contained: true
 execute: 
   warning: false
@@ -31,87 +31,200 @@ More information about `revealjs`:
 
 ## Introduction  {.smaller}
 
--   Develop a storyline that captures attention and maintains interest.
-
--   Your audience is your peers
-
--   Clearly state the problem or question you're addressing.
-
--   Introduce why it is relevant needs.
-
--   Provide an overview of your approach.
+- Develop a storyline that captures attention and maintains interest.
+- Your audience is your peers.
+- Clearly state the problem or question you’re addressing.
+- Introduce why it is relevant.
+- Provide an overview of your approach.
 
 In kernel estimator, weight function is known as kernel function
 [@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
 The PCA [@daffertshofer2004pca]\*
 
+---
+
+### Slide 1: Overview
+- **Goal:** Fine-tune a Llama 3.1 model for domain-specific knowledge.  
+- **Focus:** Chrysler Crossfire troubleshooting, repair, & community discussions.
+
+---
+
+### Slide 2: Why Domain-Specific LLM?
+- **General-purpose LLMs** (e.g., ChatGPT, Llama) lack **niche expertise**.
+- **Chrysler Crossfire community**:
+  - Specialized jargon & common issues.
+  - Knowledge spread across forums, PDFs.
+- **Objective:** Consolidate expertise for more accurate & relevant answers.
+
 ## Methods
 
--   Detail the models or algorithms used.
+- Detail the models or algorithms used.
+- Justify your choices based on the problem and data.
 
--   Justify your choices based on the problem and data.
+---
 
+### Slide 3: Data Collection & Preparation
+- **Sources Scraped**:
+  - 7+ Chrysler Crossfire forum subdirectories (~60k posts, 26k used).
+  - 32 PDFs with manuals & user guides.
+- **Workflow**:
+  1. **wget** for forum scraping
+  2. **R script** to parse HTML (~60k text snippets)
+  3. **Convenience sampling** → 26,447 forum posts
+  4. Merged PDFs + forum data → single text corpus
 
+---
+
+### Slide 4: AugmentToolKit (ATK)
+- **Purpose:** Generate multi-turn conversational datasets from raw text.
+- **Process**:
+  1. Merge text from forums & PDFs.
+  2. Use LLM-based QA pipeline → produce 8,385 Q&A pairs.
+  3. Perform data integrity checks & ensure consistent format.
+- **Outcome:** A high-quality, **Crossfire-specific** conversational dataset.
+
+---
+
+### Slide 5: The Llama 3 Herd
+- **Meta’s Llama 3**: multiple sizes (8B, 70B, 405B) in Base & Instruct variants.
+- **Instruct vs. Base**:
+  - **Base:** Trained on large unlabeled data for broad capabilities.
+  - **Instruct:** Fine-tuned with SFT + RLHF for **task-oriented** responses.
+- **Chosen Model:** Llama 3.1 8B Instruct.
+
+---
+
+### Slide 6: Fine-Tuning with Unsloth
+- **Framework:** Unsloth handles end-to-end training.
+  - Loads model/tokenizer.
+  - Converts dataset into Alpaca-like format.
+  - Configures hyperparameters & trains with Hugging Face SFT.
+- **Key Specs**:
+  - Llama 3.1 8B, quantized to 4-bit.
+  - Effective batch size: 8.
+  - 3 epochs, ~3,000 steps.
+  - Cosine learning rate schedule + warmup.
+  - ~13 hours training.
 
 ## Data Exploration and Visualization
 
--   Describe your data sources and collection process.
+- Describe your data sources and collection process.
+- Present initial findings and insights through visualizations.
+- Highlight unexpected patterns or anomalies.
 
--   Present initial findings and insights through visualizations.
+---
 
--   Highlight unexpected patterns or anomalies.
+### Chrysler Crossfire Data Visuals
+Use your specialized dataset visualizations here (forum distribution,
+topic modeling, etc.).
 
 ## Data Exploration and Visualization {.smaller}
 
 A study was conducted to determine how...
 
-```{r, warning=FALSE, echo=F, message=FALSE}
-# loading packages 
-library(tidyverse)
-library(knitr)
-library(ggthemes)
-library(ggrepel)
-library(dslabs)
-```
+Here’s an example code snippet for an unrelated dataset:
 
-```{r, warning=FALSE, echo=F}
-# Load Data
-#kable(head(murders))
-
-ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total)) 
-
-  ggplot1 + geom_point(aes(col=region), size = 4) +
-  geom_text_repel(aes(label=abb)) +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_smooth(formula = "y~x", method=lm,se = F)+
-  xlab("Populations in millions (log10 scale)") + 
-  ylab("Total number of murders (log10 scale)") +
-  ggtitle("US Gun Murders in 2010") +
-  scale_color_discrete(name = "Region")+
+    library(tidyverse)
+    library(knitr)
+    library(ggthemes)
+    library(ggrepel)
+    library(dslabs)
+    
+    ggplot1 <- murders %>% ggplot(mapping = aes(x = population/10^6, y = total)) 
+    ggplot1 +
+      geom_point(aes(col = region), size = 4) +
+      geom_text_repel(aes(label = abb)) +
+      scale_x_log10() +
+      scale_y_log10() +
+      geom_smooth(formula = "y ~ x", method = lm, se = FALSE) +
+      xlab("Populations in millions (log10 scale)") + 
+      ylab("Total number of murders (log10 scale)") +
+      ggtitle("US Gun Murders in 2010") +
+      scale_color_discrete(name = "Region") +
       theme_bw()
-  
-
-```
 
 ## Modeling and Results
 
--   Explain your data preprocessing and cleaning steps.
+- Explain your data preprocessing and cleaning steps.
+- Present your key findings clearly and concisely.
+- Use visuals to support your claims.
+- **Tell a story about what the data reveals.**
 
--   Present your key findings in a clear and concise manner.
+---
 
--   Use visuals to support your claims.
-
--   **Tell a story about what the data reveals.**
-
-```{r}
-
-```
+### Slide 7: Results & Benchmarks
+- **Evaluation:** Compared the fine-tuned model to Llama 3.1 (8B, 70B, 405B) on 5 Crossfire-specific questions.
+- **Fine-Tuned Model**:  
+  - **100% accuracy** (5/5 correct).
+- **Baselines**:
+  - 8B & 70B → 0%.
+  - 405B → 20%.
+- **Interpretation:** Domain-specific fine-tuning significantly outperforms general-purpose models.
 
 ## Conclusion
 
--   Summarize your key findings.
+- Summarize your key findings.
+- Discuss the implications of your results.
 
--   Discuss the implications of your results.
+---
+
+### Slide 8: Conclusion
+- **Success**:
+  - Specialized fine-tuning yields **niche expertise**.
+  - Model answers Crossfire-specific queries accurately.
+- **Caveats**:
+  - Occasional hallucinations on obscure questions.
+  - Rapidly evolving general LLMs may catch up.
+- **Key Takeaway**:
+  - **Fine-tuning** is powerful for targeted, high-accuracy domains.
+  - **Ongoing updates** remain crucial as AI advances.
 
 ## References
+<body>
+    <h2>References</h2>
+    <ol>
+        <li>
+            Armstrong, E., cocktailpeanut, darkacorn, Etherll, Teles, A. (afterSt0rm), abasgames, juanjopc, & RyanGreenup. (2024). 
+            <em>e-p-armstrong/augmentoolkit: Augmentoolkit 2.0 (Version 2.0.0)</em> [Computer software]. 
+            Zenodo. 
+            <a href="https://doi.org/10.5281/zenodo.13755901">https://doi.org/10.5281/zenodo.13755901</a>
+        </li>
+        <li>
+            Armstrong, E. P. (2023). 
+            <em>Augmentoolkit</em> [Computer software]. 
+            GitHub. 
+            <a href="https://github.com/e-p-armstrong/augmentoolkit">https://github.com/e-p-armstrong/augmentoolkit</a>
+        </li>
+        <li>
+            Han, D., Han, M., & the Unsloth team. (2023). 
+            <em>Unsloth</em> [Computer software]. 
+            GitHub. 
+            <a href="https://github.com/unslothai/unsloth">https://github.com/unslothai/unsloth</a>
+        </li>
+        <li>
+            Ling, C., Zhao, X., Lu, J., Deng, C., Zheng, C., Wang, J., … Zhao, L. (2024). 
+            <em>Domain specialization as the key to make large language models disruptive: A comprehensive survey</em> [Preprint]. 
+            arXiv. 
+            <a href="https://arxiv.org/abs/2305.18703">https://arxiv.org/abs/2305.18703</a>
+        </li>
+        <li>
+            Meta. (2024). 
+            <em>Llama 3.1 8B</em> [Computer software]. 
+            Hugging Face. 
+            <a href="https://huggingface.co/meta-llama/Llama-3.1-8B">https://huggingface.co/meta-llama/Llama-3.1-8B</a>
+        </li>
+        <li>
+            von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thrush, T., Lambert, N., Huang, S., Rasul, K., & Gallouédec, Q. (2020). 
+            <em>TRL: Transformer Reinforcement Learning</em> [Computer software]. 
+            GitHub. 
+            <a href="https://github.com/huggingface/trl">https://github.com/huggingface/trl</a>
+        </li>
+        <li>
+            Weights & Biases. (2025). 
+            <em>WandB Sweeps</em> [Computer software]. 
+            <a href="https://docs.wandb.ai/guides/sweeps/">https://docs.wandb.ai/guides/sweeps/</a>
+        </li>
+    </ol>
+</body>
+
+```
