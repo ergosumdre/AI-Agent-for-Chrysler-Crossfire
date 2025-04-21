@@ -1,19 +1,18 @@
-```markdown
 ---
-title: "Developing an AI Chatbot for Chrysler Crossfire Related Information Using LLaMA and Synthetic Data"
-subtitle: "Fine-tuning a Large Language Model"
-author: "Dre Dyson (Advisor: Dr. Cohen)"
-date: '`r Sys.Date()`'
+title: "Fine-Tuning an LLM for Chrysler Crossfire Troubleshooting"
+subtitle: "A Capstone Project"
+author: "Dre Dyson"
+date: '`r Sys.Date()`' # Or replace with a specific date
 format:
   revealjs
-course: Capstone Projects in Data Science
-bibliography: references.bib
+course: "Graduate Capstone Project - University of West Florida"
+
 self-contained: true
-execute: 
+execute:
   warning: false
   message: false
-editor: 
-  markdown: 
+editor:
+  markdown:
     wrap: 72
 ---
 
@@ -21,210 +20,378 @@ editor:
 **Remember:** Your goal is to make your audience understand and care
 about your findings. By crafting a compelling story, you can effectively
 communicate the value of your data science project.
-
-Carefully read this template since it has instructions and tips to
-writing!
-
-More information about `revealjs`:
-<https://quarto.org/docs/reference/formats/presentations/revealjs.html>
 :::
 
-## Introduction  {.smaller}
+## Introduction {.smaller}
 
-- Develop a storyline that captures attention and maintains interest.
-- Your audience is your peers.
-- Clearly state the problem or question you’re addressing.
-- Introduce why it is relevant.
-- Provide an overview of your approach.
-
-In kernel estimator, weight function is known as kernel function
-[@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
-The PCA [@daffertshofer2004pca]\*
+-   **Presenter:** Dre Dyson, Graduate Student, University of West Florida.
+-   **Project:** Capstone focused on fine-tuning a Large Language Model (LLM).
+-   **Goal:** Create a specialized AI assistant for troubleshooting and repairing the Chrysler Crossfire.
 
 ---
 
-### Slide 1: Overview
-- **Goal:** Fine-tune a Llama 3.1 model for domain-specific knowledge.  
-- **Focus:** Chrysler Crossfire troubleshooting, repair, & community discussions.
+### Slide 1: Title Slide
+
+**Fine-Tuning an LLM for Chrysler Crossfire Troubleshooting**
+
+Dre Dyson
+University of West Florida
+
+*Brief Intro:* "Hi everyone. My name is Dre Dyson... today, I want to share my Capstone project with you. It's about fine-tuning a Large Language Model... that focuses on troubleshooting and repairing the Chrysler Crossfire."
 
 ---
 
-### Slide 2: Why Domain-Specific LLM?
-- **General-purpose LLMs** (e.g., ChatGPT, Llama) lack **niche expertise**.
-- **Chrysler Crossfire community**:
-  - Specialized jargon & common issues.
-  - Knowledge spread across forums, PDFs.
-- **Objective:** Consolidate expertise for more accurate & relevant answers.
+### Slide 2: Why This Project?
 
-## Methods
+![Chrysler Crossfire](https://static1.topspeedimages.com/wordpress/wp-content/uploads/jpg/200610/2005-chrysler-crossfire-s-3.jpg?q=50&fit=crop&w=1100&h=618&dpr=1.5){fig-align="center" width="80%"}
 
-- Detail the models or algorithms used.
-- Justify your choices based on the problem and data.
-
----
-
-### Slide 3: Data Collection & Preparation
-- **Sources Scraped**:
-  - 7+ Chrysler Crossfire forum subdirectories (~60k posts, 26k used).
-  - 32 PDFs with manuals & user guides.
-- **Workflow**:
-  1. **wget** for forum scraping
-  2. **R script** to parse HTML (~60k text snippets)
-  3. **Convenience sampling** → 26,447 forum posts
-  4. Merged PDFs + forum data → single text corpus
+-   **Personal Connection:** I own and love my Chrysler Crossfire.
+-   **The Challenge:** It's nearly 20 years old – like many older cars, issues arise.
+-   **The Spark (Personal Story):**
+    -   Sudden unintended acceleration on the highway.
+    -   Scary experience: foot off gas, brakes applied, car still accelerating.
+    -   Managed neutral (RPMs redlined), shut off, coasted to safety.
+    -   Problem vanished temporarily upon restart.
+    -   **Frustration:** Online searches, Facebook groups yielded no clear answers for days. Stayed off highways for safety.
 
 ---
 
-### Slide 4: AugmentToolKit (ATK)
-- **Purpose:** Generate multi-turn conversational datasets from raw text.
-- **Process**:
-  1. Merge text from forums & PDFs.
-  2. Use LLM-based QA pipeline → produce 8,385 Q&A pairs.
-  3. Perform data integrity checks & ensure consistent format.
-- **Outcome:** A high-quality, **Crossfire-specific** conversational dataset.
+### Slide 3: The "Aha!" Moment
+
+-   **New Symptom (Weeks Later):** Intermittent brake lights (sometimes worked, sometimes not).
+-   **Troubleshooting:** Checked bulbs, fuses, wiring – all seemed okay.
+-   **The Culprit:** Faulty brake light switch.
+-   **The Breakthrough:** Replacing the switch fixed the brake lights *AND* the previous acceleration issue!
+-   **The Idea:**
+    -   What if a dedicated AI, like ChatGPT but for *my car*, existed?
+    -   Could it help diagnose complex, linked issues faster and more accurately?
+    -   Could *I* build something like that? **Yes.**
 
 ---
 
-### Slide 5: The Llama 3 Herd
-- **Meta’s Llama 3**: multiple sizes (8B, 70B, 405B) in Base & Instruct variants.
-- **Instruct vs. Base**:
-  - **Base:** Trained on large unlabeled data for broad capabilities.
-  - **Instruct:** Fine-tuned with SFT + RLHF for **task-oriented** responses.
-- **Chosen Model:** Llama 3.1 8B Instruct.
+### Slide 4: Methods (4-Step Process)
+
+![4-step process graphic: Collect, Generate, Train, Test](https://dredyson.com/wp-content/uploads/2025/04/User-dialog-7-1.png){fig-align="center" width="80%"}
+
+1.  **Collect:** Gather real-world Chrysler Crossfire data (forums, guides).
+2.  **Generate:** Transform collected data into high-quality Q&A training pairs.
+3.  **Train:** Fine-tune a base LLM using the specialized Crossfire dataset.
+4.  **Test:** Evaluate the fine-tuned model's performance on Crossfire-specific questions.
 
 ---
 
-### Slide 6: Fine-Tuning with Unsloth
-- **Framework:** Unsloth handles end-to-end training.
-  - Loads model/tokenizer.
-  - Converts dataset into Alpaca-like format.
-  - Configures hyperparameters & trains with Hugging Face SFT.
-- **Key Specs**:
-  - Llama 3.1 8B, quantized to 4-bit.
-  - Effective batch size: 8.
-  - 3 epochs, ~3,000 steps.
-  - Cosine learning rate schedule + warmup.
-  - ~13 hours training.
+### Slide 5: Step 1 - Collecting the Data
 
-## Data Exploration and Visualization
-
-- Describe your data sources and collection process.
-- Present initial findings and insights through visualizations.
-- Highlight unexpected patterns or anomalies.
+-   **Objective:** Source real-world Crossfire problems and solutions.
+-   **Method:** Automated scraping script targeting popular Crossfire forums.
+-   **Sources:**
+    -   Troubleshooting threads
+    -   Repair guides (DIY)
+    -   Common issue discussions
+-   **Initial Data Volume:** ~60,000+ forum posts, ~32 DIY PDF guides.
+-   **Refinement:** Sampled down to ~25,000 relevant posts for manageability.
 
 ---
 
-### Chrysler Crossfire Data Visuals
-Use your specialized dataset visualizations here (forum distribution,
-topic modeling, etc.).
+### Slide 6: Step 2 - Generating Synthetic Data
 
-## Data Exploration and Visualization {.smaller}
+-   **Challenge:** Raw forum data is unstructured and noisy.
+-   **Solution:** Used **AugmentedToolkit (ATK)**.
+    -   Leverages Python and AI.
+    -   Reads raw text (posts, PDFs).
+    -   Transforms content into structured, high-quality **Question/Answer pairs**.
+-   **Outcome:** Generated **over 8,000** Crossfire-specific Q&A pairs suitable for model training.
 
-A study was conducted to determine how...
+<html>
+<head>
+  <style>
+      width: 80%; /* Adjust width for slide */
+      margin: 20px auto;
+      text-align: left;
+      font-size: 0.7em; /* Smaller font for slide */
+    }
+    .table-container-slide6 table {
+      border-collapse: collapse;
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .table-container-slide6 th, .table-container-slide6 td {
+      border: 1px solid #ddd;
+      padding: 8px; /* Reduced padding */
+    }
+    .table-container-slide6 th {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+      text-align: center; /* Center header text */
+    }
+    .table-container-slide6 tr:nth-child(even) {
+      background-color: #ecf0f1;
+    }
+    .table-container-slide6 .table-description {
+      margin-top: 5px;
+      font-size: 0.9em; /* Relative to container font size */
+      color: #555;
+    }
+  </style>
+</head>
+<body>
 
-Here’s an example code snippet for an unrelated dataset:
+  <div class="table-container-slide6">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: left;">Metrics</th>
+          <th style="text-align: right;">Fine-tuning Dataset</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: left;">No. of dialogues</td>
+          <td style="text-align: right;">8385</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Total no. of turns</td>
+          <td style="text-align: right;">79663</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Avg. turns per dialogue</td>
+          <td style="text-align: right;">9.5</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Avg. tokens per turn</td>
+          <td style="text-align: right;">41.62</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Total unique tokens</td>
+          <td style="text-align: right;">70165</td>
+        </tr>
+      </tbody>
+    </table>
 
-    library(tidyverse)
-    library(knitr)
-    library(ggthemes)
-    library(ggrepel)
-    library(dslabs)
-    
-    ggplot1 <- murders %>% ggplot(mapping = aes(x = population/10^6, y = total)) 
-    ggplot1 +
-      geom_point(aes(col = region), size = 4) +
-      geom_text_repel(aes(label = abb)) +
-      scale_x_log10() +
-      scale_y_log10() +
-      geom_smooth(formula = "y ~ x", method = lm, se = FALSE) +
-      xlab("Populations in millions (log10 scale)") + 
-      ylab("Total number of murders (log10 scale)") +
-      ggtitle("US Gun Murders in 2010") +
-      scale_color_discrete(name = "Region") +
-      theme_bw()
+    <div class="table-description">
+      <strong>Table 1:</strong> Summarizes the characteristics of the conversational dataset generated by ATK.
+    </div>
+  </div>
 
-## Modeling and Results
-
-- Explain your data preprocessing and cleaning steps.
-- Present your key findings clearly and concisely.
-- Use visuals to support your claims.
-- **Tell a story about what the data reveals.**
+</body>
+</html>
 
 ---
 
-### Slide 7: Results & Benchmarks
-- **Evaluation:** Compared the fine-tuned model to Llama 3.1 (8B, 70B, 405B) on 5 Crossfire-specific questions.
-- **Fine-Tuned Model**:  
-  - **100% accuracy** (5/5 correct).
-- **Baselines**:
-  - 8B & 70B → 0%.
-  - 405B → 20%.
-- **Interpretation:** Domain-specific fine-tuning significantly outperforms general-purpose models.
+### Slide 7: Step 3 - Fine-Tuning the Model
 
-## Conclusion
-
-- Summarize your key findings.
-- Discuss the implications of your results.
+-   **Objective:** Teach a base LLM the collected Crossfire knowledge.
+-   **Tool:** **Unsloth** (for faster, memory-efficient fine-tuning).
+-   **Base Model:** Meta's **Llama 3.1 8B Instruct** (powerful, open-source).
+-   **Dataset:** Loaded the 8,000+ Crossfire Q&A pairs (detailed in Table 1).
+-   **Process:** Supervised Fine-Tuning (SFT).
+    -   **Epochs:** 3
+    -   **Steps:** ~3,000
+    -   **Learning Rate:** 1E-4
+-   **Duration:** Approx. 8 hours.
+-   **Result:** A Llama 3.1 8B model **fine-tuned specifically on Chrysler Crossfire knowledge.**
 
 ---
 
-### Slide 8: Conclusion
-- **Success**:
-  - Specialized fine-tuning yields **niche expertise**.
-  - Model answers Crossfire-specific queries accurately.
-- **Caveats**:
-  - Occasional hallucinations on obscure questions.
-  - Rapidly evolving general LLMs may catch up.
-- **Key Takeaway**:
-  - **Fine-tuning** is powerful for targeted, high-accuracy domains.
-  - **Ongoing updates** remain crucial as AI advances.
+### Slide 8: Results - Training Validation & Testing
+
+**1. Training Validation: Did the Model Learn?**
+
+*   The `train/loss` plot shows how well the model absorbed the Crossfire data during fine-tuning.
+*   **Observations:**
+    *   Loss starts ~1.4-1.6, drops rapidly early on (fast initial learning).
+    *   Later, the drop slows, with some fluctuations (normal for batch training).
+    *   Towards the end (~3,000 steps), loss settles between 0.8-1.0.
+*   **Conclusion:** The decreasing trend confirms the fine-tuning was effective; the model successfully learned from the specialized dataset.
+
+![Weights and Biases Training Loss Plot showing decreasing loss over training steps](https://dredyson.com/wp-content/uploads/2025/04/Screenshot-2025-04-14-at-11.18.55%E2%80%AFAM.png){#fig-loss fig-align="center" width="70%"}
+*Training Loss Curve*
+
+---
+
+::: {.fragment}
+**2. Testing: How Did It Perform vs. Base Models?**
+
+*   **Method:** Compared Fine-Tuned 8B ("Chrysler Crossfire Model") vs. standard Llama 3.1 (8B, 70B, 405B) Instruct on 5 specific Crossfire questions.
+*   **Example Questions Addressed:**
+    *   "What type of battery should I use for my Chrysler Crossfire?" (Battery Type)
+    *   "What's the stock front wheel size?" (Front Wheel Size)
+    *   "What headlight model does the Crossfire use?" (Headlight Model)
+    *   "What's the stock *rear* wheel size?" (Rear Wheel Size)
+    *   "How do I perform a throttle reset?" (Throttle Reset Proc.)
+
+<div class="table-container">
+<b>Table 3: Detailed Question Performance</b>
+    <table class="dataframe results-table" style="margin-left: auto; margin-right: auto; font-size: 0.8em;"> 
+  <thead>
+    <tr style="text-align: center;"> <!-- Centered header text -->
+      <th>Question Category</th>
+      <th>Battery Type</th>
+      <th>Front Wheel Size</th>
+      <th>Headlight Model</th>
+      <th>Rear Wheel Size</th>
+      <th>Throttle Reset Proc.</th>
+    </tr>
+    <tr>
+      <th>model</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Llama 3.1 8B</th>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+    </tr>
+    <tr>
+      <th>Llama 3.1 70B</th>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+    </tr>
+    <tr>
+      <th>Llama 3.1 405B</th>
+      <td>Incorrect</td>
+      <td>Correct</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+      <td>Incorrect</td>
+    </tr>
+    <tr>
+      <th>Chrysler Crossfire Model</th>
+      <td>Correct</td>
+      <td>Correct</td>
+      <td>Correct</td>
+      <td>Correct</td>
+      <td>Correct</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="table-container">
+<b>Table 4: Overall Accuracy Summary</b>
+    <table class="dataframe summary-table" style="margin-left: auto; margin-right: auto; font-size: 0.8em; width: 70%;"> 
+  <thead>
+    <tr style="text-align: center;"> 
+      <th></th>
+      <th>Correct Answers</th>
+      <th>Total Questions</th>
+      <th>Accuracy (%)</th>
+    </tr>
+    <tr>
+      <th>model</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Llama 3.1 8B</th>
+      <td>0</td>
+      <td>5</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Llama 3.1 70B</th>
+      <td>0</td>
+      <td>5</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Llama 3.1 405B</th>
+      <td>1</td>
+      <td>5</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>Chrysler Crossfire Model</th>
+      <td>5</td>
+      <td>5</td>
+      <td>100.00</td>
+    </tr>
+  </tbody>
+</table>
+	<!-- Removed redundant caption paragraph -->
+</div>
+
+*   **Key Takeaway:** Fine-tuning demonstrably imparted specific knowledge, significantly outperforming even much larger base models on these niche questions, achieving 100% accuracy compared to 0-20% for the others.
+:::
+
+---
+
+### Slide 9: Conclusion
+
+-   **Achievement:** Successfully fine-tuned a general LLM (Llama 3.1 8B) into a specialized Chrysler Crossfire expert.
+-   **Process Recap:**
+    1.  Collected thousands of real-world forum posts & guides.
+    2.  Transformed unstructured text into a high-quality Q&A dataset using ATK (See Table 1).
+    3.  Fine-tuned the model using Unsloth and the specialized dataset.
+    4.  Tested against larger base models (See Tables 3 & 4).
+-   **Key Finding:** The targeted fine-tuned model significantly outperformed even vastly larger general models (like the 405B) on niche Crossfire questions.
+-   **Implication:** Training smaller, specialized models with high-quality, domain-specific data is highly effective for niche applications.
+
+---
+
 
 ## References
+
 <body>
     <h2>References</h2>
     <ol>
         <li>
-            Armstrong, E., cocktailpeanut, darkacorn, Etherll, Teles, A. (afterSt0rm), abasgames, juanjopc, & RyanGreenup. (2024). 
-            <em>e-p-armstrong/augmentoolkit: Augmentoolkit 2.0 (Version 2.0.0)</em> [Computer software]. 
-            Zenodo. 
+            Armstrong, E., cocktailpeanut, darkacorn, Etherll, Teles, A. (afterSt0rm), abasgames, juanjopc, & RyanGreenup. (2024).
+            <em>e-p-armstrong/augmentoolkit: Augmentoolkit 2.0 (Version 2.0.0)</em> [Computer software].
+            Zenodo.
             <a href="https://doi.org/10.5281/zenodo.13755901">https://doi.org/10.5281/zenodo.13755901</a>
         </li>
         <li>
-            Armstrong, E. P. (2023). 
-            <em>Augmentoolkit</em> [Computer software]. 
-            GitHub. 
+            Armstrong, E. P. (2023).
+            <em>Augmentoolkit</em> [Computer software].
+            GitHub.
             <a href="https://github.com/e-p-armstrong/augmentoolkit">https://github.com/e-p-armstrong/augmentoolkit</a>
         </li>
         <li>
-            Han, D., Han, M., & the Unsloth team. (2023). 
-            <em>Unsloth</em> [Computer software]. 
-            GitHub. 
+            Han, D., Han, M., & the Unsloth team. (2023).
+            <em>Unsloth</em> [Computer software].
+            GitHub.
             <a href="https://github.com/unslothai/unsloth">https://github.com/unslothai/unsloth</a>
         </li>
         <li>
-            Ling, C., Zhao, X., Lu, J., Deng, C., Zheng, C., Wang, J., … Zhao, L. (2024). 
-            <em>Domain specialization as the key to make large language models disruptive: A comprehensive survey</em> [Preprint]. 
-            arXiv. 
+            Ling, C., Zhao, X., Lu, J., Deng, C., Zheng, C., Wang, J., … Zhao, L. (2024).
+            <em>Domain specialization as the key to make large language models disruptive: A comprehensive survey</em> [Preprint].
+            arXiv.
             <a href="https://arxiv.org/abs/2305.18703">https://arxiv.org/abs/2305.18703</a>
         </li>
         <li>
-            Meta. (2024). 
-            <em>Llama 3.1 8B</em> [Computer software]. 
-            Hugging Face. 
+            Meta. (2024).
+            <em>Llama 3.1 8B</em> [Computer software].
+            Hugging Face.
             <a href="https://huggingface.co/meta-llama/Llama-3.1-8B">https://huggingface.co/meta-llama/Llama-3.1-8B</a>
         </li>
         <li>
-            von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thrush, T., Lambert, N., Huang, S., Rasul, K., & Gallouédec, Q. (2020). 
-            <em>TRL: Transformer Reinforcement Learning</em> [Computer software]. 
-            GitHub. 
+            von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thrush, T., Lambert, N., Huang, S., Rasul, K., & Gallouédec, Q. (2020).
+            <em>TRL: Transformer Reinforcement Learning</em> [Computer software].
+            GitHub.
             <a href="https://github.com/huggingface/trl">https://github.com/huggingface/trl</a>
         </li>
         <li>
-            Weights & Biases. (2025). 
-            <em>WandB Sweeps</em> [Computer software]. 
+            Weights & Biases. (2025). <!-- Date might need checking -->
+            <em>WandB Sweeps</em> [Computer software].
             <a href="https://docs.wandb.ai/guides/sweeps/">https://docs.wandb.ai/guides/sweeps/</a>
         </li>
     </ol>
 </body>
-
-```
