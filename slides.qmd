@@ -2,7 +2,7 @@
 title: "Fine-Tuning an LLM for Chrysler Crossfire Troubleshooting"
 subtitle: "A Capstone Project"
 author: "Dre Dyson"
-date: '`r Sys.Date()`' # Or replace with a specific date
+date: 'Apr 22, 2025'
 format:
   revealjs:
     # css: custom.css # Link the CSS file
