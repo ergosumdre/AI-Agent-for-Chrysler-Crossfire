@@ -21,12 +21,6 @@ editor:
     wrap: 72
 ---
 
-::: callout-important
-**Remember:** Your goal is to make your audience understand and care
-about your findings. By crafting a compelling story, you can effectively
-communicate the value of your data science project.
-:::
-
 ## Introduction
 
 -   **Presenter:** Dre Dyson, Graduate Student, University of West
@@ -54,7 +48,7 @@ Chrysler Crossfire."
 ## Why This Project?
 
 ![Chrysler
-Crossfire](/Users/dre/Downloads/crossfire_image.png){width="60%"}
+Crossfire](https://dredyson.com/wp-content/uploads/2025/04/crossfire_image.png){width="60%"}
 
 -   **Personal Connection:** I own and love my Chrysler Crossfire.
 -   **The Challenge:** It's nearly 20 years old – like many older cars,
@@ -209,6 +203,8 @@ fig-align="center" width="300%"}
 </style>
 ```
 
+Comparison Table:
+
 ::: model-comparison-table
 | Question Category | Battery Type | Front Wheel Size | Headlight Model | Rear Wheel Size | Throttle Reset Proc. |
 |------------|------------|------------|------------|------------|------------|
@@ -217,7 +213,11 @@ fig-align="center" width="300%"}
 | Llama 3.1 8B | Incorrect | Incorrect | Incorrect | Incorrect | Incorrect |
 | Llama 3.1 70B | Incorrect | Incorrect | Incorrect | Incorrect | Incorrect |
 | Llama 3.1 405B | Incorrect | Correct | Incorrect | Incorrect | Incorrect |
+:::
 
+Accuracy Table:
+
+::: model-comparison-table
 |                          | Correct Answers | Total Questions | Accuracy (%) |
 |--------------------------|-----------------|-----------------|--------------|
 | **Model**                |                 |                 |              |
@@ -285,7 +285,7 @@ Lambert, N., Huang, S., Rasul, K., & Gallouédec, Q. (2020). <em>TRL:
 Transformer Reinforcement Learning</em> \[Computer software\]. GitHub.
 <a href="https://github.com/huggingface/trl">https://github.com/huggingface/trl</a></li>
 
-<li>Weights & Biases. (2025).
+<li>Weights & Biases. (2025). <!-- Date might need checking -->
 <em>WandB Sweeps</em> \[Computer software\].
 <a href="https://docs.wandb.ai/guides/sweeps/">https://docs.wandb.ai/guides/sweeps/</a></li>
 
