@@ -389,7 +389,7 @@ University of West Florida
             <a href="https://github.com/huggingface/trl">https://github.com/huggingface/trl</a>
         </li>
         <li>
-            Weights & Biases. (2025). <!-- Date might need checking -->
+            Weights & Biases. (2025). 
             <em>WandB Sweeps</em> [Computer software].
             <a href="https://docs.wandb.ai/guides/sweeps/">https://docs.wandb.ai/guides/sweeps/</a>
         </li>
