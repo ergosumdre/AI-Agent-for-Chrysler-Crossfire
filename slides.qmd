@@ -38,11 +38,6 @@ editor:
 
 Dre Dyson University of West Florida
 
-*Brief Intro:* "Hi everyone. My name is Dre Dyson... today, I want to
-share my Capstone project with you. It's about fine-tuning a Large
-Language Model... that focuses on troubleshooting and repairing the
-Chrysler Crossfire."
-
 ------------------------------------------------------------------------
 
 ## Why This Project?
