@@ -6,29 +6,28 @@ import time
 
 # --- Configuration ---
 # Fine-tuned Ollama model details
-FINE_TUNED_MODEL_UI_NAME = "Ollama Crossfire (Local)"
-OLLAMA_MODEL_TAG = "crossfire_model_v4_mac_v2:latest" # Make sure this tag exists locally
-OLLAMA_API_URL = "http://localhost:11434/api/generate" # Default Ollama URL
+FINE_TUNED_MODEL_UI_NAME = "Chrysler Crossfire Model"
+OLLAMA_MODEL_TAG = "crossfire_model_v4_mac_v2:latest"
+OLLAMA_API_URL = "http://localhost:11434/api/generate"
 
 # Evaluation LLM configuration (using OpenRouter)
-EVALUATION_MODEL_NAME = "meta-llama/llama-4-maverick" # Or another capable model like Claude 3.5 Sonnet, GPT-4o etc.
-# Check OpenRouter model availability if changing this
+EVALUATION_MODEL_NAME = "meta-llama/llama-4-maverick" 
 
 # List of OpenRouter models for comparison
 OPENROUTER_MODELS = [
     "meta-llama/llama-3.1-405b-instruct",
     "meta-llama/llama-3.1-70b-instruct",
     "meta-llama/llama-3.1-8b-instruct",
-    "meta-llama/llama-3.1-8b",
-    "google/gemini-flash-1.5",
-    "google/gemini-2.5-pro-preview-03-25",
-    "anthropic/claude-3.5-sonnet",
-    "meta-llama/llama-4-maverick",
-    "openai/gpt-4-turbo",
-    "meta-llama/llama-4-scout",
-    "deepseek/deepseek-v3-base:free",
-    "google/gemma-3-12b-it",
-    "google/gemma-3-27b-it",
+#    "meta-llama/llama-3.1-8b",
+#    "google/gemini-flash-1.5",
+#    "google/gemini-2.5-pro-preview-03-25",
+#    "anthropic/claude-3.5-sonnet",
+#    "meta-llama/llama-4-maverick",
+#    "openai/gpt-4-turbo",
+#    "meta-llama/llama-4-scout",
+#    "deepseek/deepseek-v3-base:free",
+#    "google/gemma-3-12b-it",
+#    "google/gemma-3-27b-it",
     ]
 # Ensure Evaluation model is not duplicated if it's already in the list
 if EVALUATION_MODEL_NAME in OPENROUTER_MODELS:
@@ -160,7 +159,6 @@ Respond with only the single word 'Correct' or 'Incorrect'. Do not provide any e
         is_evaluation=True # Signal evaluation call
     )
 
-    # Parse the evaluation response (keep previous parsing logic)
     if eval_response.startswith("Error:"):
         return "Eval Error"
 
@@ -254,7 +252,6 @@ if st.button("Run Comparison & Evaluation"):
         st.warning("Please select at least one model.")
     elif not openrouter_api_key:
          st.error("OpenRouter API Key is required in the sidebar for evaluation.")
-    # Removed check for reference_answer here, handled in evaluation step
 
     else:
         st.header("Results")
@@ -286,7 +283,6 @@ if st.button("Run Comparison & Evaluation"):
                 generation_responses[model_ui_name] = response_content
                 generation_latencies[model_ui_name] = latency
 
-            # Step 2: Evaluate responses (if reference answer is provided)
             evaluation_results = {}
             evaluation_latencies = {}
             st.subheader("2. Evaluating Responses...")
@@ -304,7 +300,6 @@ if st.button("Run Comparison & Evaluation"):
                     evaluation_latencies[model_ui_name] = end_eval_time - start_eval_time
             else:
                 st.info("No reference answer provided, skipping LLM evaluation step.")
-                # Fill results with N/A if no evaluation was performed
                 for model_ui_name in selected_models:
                     evaluation_results[model_ui_name] = "N/A (No Ref. Answer)"
                     evaluation_latencies[model_ui_name] = 0.0
@@ -315,12 +310,10 @@ if st.button("Run Comparison & Evaluation"):
                  results.append({
                     "Model": model_ui_name,
                     "Response": generation_responses[model_ui_name],
-                    # Updated column name for clarity
                     f"Eval vs Ref. ({EVALUATION_MODEL_NAME})": evaluation_results[model_ui_name],
                     "Generation Latency (s)": f"{generation_latencies[model_ui_name]:.2f}",
                     "Evaluation Latency (s)": f"{evaluation_latencies.get(model_ui_name, 0.0):.2f}", # Use .get for safety
                  })
-                 # Store for side-by-side display
                  all_responses[model_ui_name] = generation_responses[model_ui_name]
 
         st.success("Generation and Evaluation Complete!")
@@ -329,7 +322,7 @@ if st.button("Run Comparison & Evaluation"):
         st.header("Comparison Summary Table")
         if results:
             df_results = pd.DataFrame(results)
-            st.dataframe(df_results, use_container_width=True, height=max(300, len(results)*40)) # Adjust height dynamically
+            st.dataframe(df_results, use_container_width=True, height=max(300, len(results)*40))
         else:
             st.info("No results to display.")
 
