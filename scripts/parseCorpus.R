@@ -76,4 +76,4 @@ base_directory = "/Users/dre/Downloads/crossfire_scrape/www.crossfireforum.org/f
 dat = parse_forum_posts(base_directory)
 
 text_corpus = dat$post_content
-writeLines(text_corpus, "crossfire_forum.txt")
+writeLines(text_corpus, "atk_cf.txt")
