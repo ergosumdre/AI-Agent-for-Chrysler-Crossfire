@@ -164,7 +164,7 @@ The fine-tuned Llama 3.1 8B model ("Chrysler Crossfire Model") was evaluated aga
 5.  How do I perform a throttle reset for my Chrysler Crossfire? (Ground Truth: Key to position 2, pedal down 5s, key off, pedal up)
 
 A dashboard was developed to prompt these models via OpenRouter's API. Meta’s Llama 4 Maverick was used as a judge to label responses as 'Correct' or 'Incorrect' against the ground truth.
-*   [View Evaluation Script (Placeholder)](./scripts/evaluation_dashboard.py)
+
 
 **Table 3: Model Performance on Specific Questions**
 | Model                   | Battery Type | Front Wheel Size | Headlight Model | Rear Wheel Size | Throttle Reset Proc. |
