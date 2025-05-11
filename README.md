@@ -50,17 +50,17 @@ The primary goal of this project is to develop a specialized LLM that can:
 
 This project developed a Chrysler Crossfire-specific LLM through several key stages: data collection and preparation, conversational dataset generation using AugmentToolKit, selecting from Meta's Llama 3 Herd of Models, and fine-tuning the chosen model using Unsloth.
 
-![Figure 1: Flowchart to fine-tune the Chrysler Crossfire Model.](./path/to/your/figure1.png)
+![Figure 1: Flowchart to fine-tune the Chrysler Crossfire Model.](https://dredyson.com/wp-content/uploads/2025/04/User-dialog-7-1.png)
 *Figure 1: Flowchart to fine-tune the Chrysler Crossfire Model.*
 
 ### Data Collection and Preparation
 
 1.  **Forum Scraping:** A `bash` script using `wget` was executed to scrape the popular Chrysler Crossfire forum `http://crossfireforum.org`. This created a local mirror of the forum's structure.
     *   **Subdirectories Scraped:** `all-crossfires`, `crossfire-coupe`, `crossfire-roadster`, `crossfire-srt6`, `troubleshooting-technical-questions-modifications`, `tsbs-how-articles`, and `wheels-brakes-tires-suspension`.
-    *   [View Scraper Code (Placeholder)](./scripts/scraper.sh)
+    *   [View Scraper Code (Placeholder)](https://github.com/ergosumdre/AI-Agent-for-Chrysler-Crossfire/blob/main/scripts/scrapeBot.sh)
 2.  **Data Parsing:** An `R` script was used to parse the scraped HTML forum posts into a single dataframe, yielding approximately 60,000 Chrysler Crossfire-related text corpuses.
 3.  **Sampling:** A convenience sampling approach was applied to select ~26,447 forum posts covering diverse topics like ownership experiences, expectations, and common issues.
-    *   [View R Parsing Code (Placeholder)](./scripts/parser.R)
+    *   [View R Parsing Code (Placeholder)](https://github.com/ergosumdre/AI-Agent-for-Chrysler-Crossfire/blob/main/scripts/parseCorpus.R)
 4.  **Manual Collection:** 32 PDF files containing manufacturer technical documentation and user-submitted how-to guides were manually collected.
 5.  **Input for Augmentation:** The raw text corpus and PDF files were provided to AugmentToolKit for synthetic data generation.
 
@@ -69,7 +69,7 @@ This project developed a Chrysler Crossfire-specific LLM through several key sta
 AugmentToolKit (ATK) is an open-source toolkit designed to automatically convert raw text into high-quality, custom datasets for training LLMs (Armstrong et al., 2024).
 *   **Workflow:** ATK processes an input folder (containing forum posts and PDFs), converts all files into a single text file, and then uses a user-specified LLM (Deepseek API in this project) to generate questions for each line of text. This is followed by data integrity checks.
 
-![Figure 2: AugmentToolKit 2.0 Workflow](./path/to/your/figure2.png)
+![Figure 2: AugmentToolKit 2.0 Workflow](https://dredyson.com/wp-content/uploads/2025/03/flowchart.jpg)
 *(Source: Augmentoolkit 2.0, 2024)*
 *Figure 2: AugmentToolKit 2.0 Workflow.*
 
@@ -89,9 +89,7 @@ For this project, we selected **Meta’s Llama 3.1 8B Instruct Model** for fine-
 
 Unsloth is a framework that streamlines LLM training, handling data preparation, model loading/quantization, training, evaluation, and exporting.
 1.  **Model Loading:** Unsloth loads a quantized model (Llama 3.1 8B 4-bit) and its tokenizer.
-    *   [View Model Loading Code (Placeholder)](./scripts/unsloth_load_model.py)
 2.  **Dataset Formatting:** The raw dataset was converted into a standardized 'Alpaca' conversational style, natively supported by HuggingFace's Supervised Fine-tuning Trainer (SFT) (von Werra et al., 2020).
-    *   [View Dataset Formatting Code (Placeholder)](./scripts/unsloth_format_data.py)
 3.  **SFTTrainer Configuration:**
     *   `per_device_train_batch_size`: 2
     *   `gradient_accumulation_steps`: 4 (Effective batch size: 8)
@@ -102,7 +100,6 @@ Unsloth is a framework that streamlines LLM training, handling data preparation,
     *   `fp16` or `bf16` mixed-precision training
     *   `adamw_8bit` optimizer
 4.  **Training:** The Llama 3.1 8B model was fine-tuned for approximately 3,000 steps.
-    *   [View Training Configuration Code (Placeholder)](./scripts/unsloth_train.py)
 
 ## Analysis and Results
 
@@ -118,7 +115,7 @@ The collected data from Chrysler Crossfire online forums provided rich insights 
 | Avg. turns per dialogue   | 9.5     |
 | Avg. tokens per turn      | 41.62   |
 | Total unique tokens       | 70165   |
-*Table 1: Summarizes the characteristics of the conversational dataset (from `all_modded.jsonl`).*
+*Table 1: Summarizes the characteristics of the conversational dataset (from `all.jsonl`).*
 
 Topic modeling was performed on the fine-tuning dataset to understand prevalent themes, as recommended by Meta (2024).
 
@@ -145,12 +142,12 @@ Training progress was monitored using Weights & Biases, tracking `train/learning
 
 *   **Learning Rate:** The `train/learning_rate` plot (Figure 3) shows the configured schedule: initial warmup to 1e-4, followed by a cosine decay.
 
-    ![Figure 3: Weights and Biases Learning Rate Plot](./path/to/your/figure3_lr.png)
+    ![Figure 3: Weights and Biases Learning Rate Plot](https://dredyson.com/wp-content/uploads/2025/04/Screenshot-2025-04-14-at-11.17.05%E2%80%AFAM.png)
     *Figure 3: Weights and Biases's Learning Rate Plot.*
 
 *   **Training Loss:** The `train/loss` plot (Figure 4) demonstrates effective learning. Loss started around 1.4-1.6, dropped rapidly, and then gradually settled between 0.8 and 1.0 towards the end of training.
 
-    ![Figure 4: Weights and Biases Training Loss Plot](./path/to/your/figure4_loss.png)
+    ![Figure 4: Weights and Biases Training Loss Plot](https://dredyson.com/wp-content/uploads/2025/04/Screenshot-2025-04-14-at-11.18.55%E2%80%AFAM.png)
     *Figure 4: Weights and Biases's Training Loss Plot.*
 
 These plots confirm that the training proceeded as configured and the model learned from the specialized dataset.
